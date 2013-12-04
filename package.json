@@ -1,5 +1,5 @@
 {
-  "name": "zip-path",
+  "name": "zip-paths",
   "version": "0.0.1",
   "description": "Easily archive paths to zip files",
   "main": "index.js",
@@ -21,7 +21,12 @@
     "email": "contact@goansible.com",
     "url": "http://goansible.com/"
   },
-  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.github.com/goansible/zip-paths/master/LICENSE"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/goansible/zip-paths/issues"
   },
@@ -29,7 +34,8 @@
     "archiver": "~0.4.10",
     "async": "~0.2.9",
     "coffee-script": "~1.6.3",
-    "glob": "~3.2.7"
+    "glob": "~3.2.7",
+    "lodash.assign": "~2.4.1"
   },
   "devDependencies": {
     "mocha": "~1.15.1"
