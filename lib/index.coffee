@@ -5,10 +5,13 @@ extend = require 'lodash.assign'
 fs = require 'fs'
 
 module.exports = do ->
-  options   = level: 9
-  zip       = archiver 'zip', options
-  out       = undefined
-  fileStack = []
+  options     = level: 9
+  initialized = false
+  type        = 'zip'
+  zip         = undefined
+  out         = undefined
+  fileList    = []
+  fileStack   = []
 
   return {
     getStream: ->
@@ -29,11 +32,15 @@ module.exports = do ->
           fs.stat file, (err, stats) ->
             if stats.isFile()
               do (file) ->
+                fileList.push file
                 fileStack.push (cb) ->
                   zip.append(fs.createReadStream(file), name: file, cb)
 
             if i is files.length-1
               callback()
+
+    getFiles: ->
+      return fileList
 
     compress: (callback) ->
       zip.pipe out
