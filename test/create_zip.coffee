@@ -31,4 +31,9 @@ test 'queues files for compression', (t) ->
 test 'creates zip file', (t) ->
   t.false fs.existsSync(zipFile), 'zip file is not created'
 
-  t.end()
+  zip.compress (err, bytes) ->
+    t.error err, 'zip is created'
+    t.true  fs.existsSync(zipFile), 'zip file is created'
+    t.true (bytes > 0)
+
+    t.end()
