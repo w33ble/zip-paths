@@ -8,6 +8,7 @@ module.exports = do ->
   options     = level: 9
   initialized = false
   type        = 'zip'
+  zip         = undefined
   zipPath     = undefined
   fileList    = []
   fileStack   = []
