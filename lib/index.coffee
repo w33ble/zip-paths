@@ -12,6 +12,9 @@ module.exports = do ->
   out         = undefined
   fileList    = []
   fileStack   = []
+  initialize = ->
+    zip = archiver type, options
+    initialized = true
 
   return {
     getStream: ->
@@ -20,12 +23,18 @@ module.exports = do ->
     setOptions: (opt) ->
       extend(options, opt)
 
+    setType: (type='zip') ->
+      type = type
+
     setOutput: (path) ->
       if out?
         out.end()
       out = fs.createWriteStream path
 
     add: (path, callback) ->
+      if not initialized
+        initialize()
+
       glob path, (err, files) ->
         callback err if err
         files.forEach (file, i) ->
@@ -43,6 +52,9 @@ module.exports = do ->
       return fileList
 
     compress: (callback) ->
+      if not initialized
+        initialize()
+
       zip.pipe out
 
       async.parallel fileStack, (err) ->
