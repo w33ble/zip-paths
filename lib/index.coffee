@@ -15,6 +15,9 @@ module.exports = do ->
   initialize = ->
     zip = archiver type, options
     initialized = true
+  reset = ->
+    fileList = []
+    fileStack = []
 
   return {
     setOptions: (opt) ->
@@ -57,6 +60,8 @@ module.exports = do ->
         initialize()
 
       out = fs.createWriteStream zipPath
+      out.on 'close', reset
+
       zip.pipe out
 
       async.parallel fileStack, (err) ->
