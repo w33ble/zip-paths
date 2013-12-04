@@ -25,7 +25,8 @@ test 'queues files for compression', (t) ->
           cb()
 
   async.parallel stack, (err) ->
-    t.assert zip.getFiles().length, 3, '3 files queued for compression'
+    fileList = zip.getFiles()
+    t.equals fileList.length, 3, '3 files queued for compression'
     t.end()
 
 test 'creates zip file', (t) ->
