@@ -8,8 +8,7 @@ module.exports = do ->
   options     = level: 9
   initialized = false
   type        = 'zip'
-  zip         = undefined
-  out         = undefined
+  zipPath     = undefined
   fileList    = []
   fileStack   = []
   initialize = ->
@@ -17,9 +16,6 @@ module.exports = do ->
     initialized = true
 
   return {
-    getStream: ->
-      return out
-
     setOptions: (opt) ->
       extend(options, opt)
 
@@ -27,9 +23,7 @@ module.exports = do ->
       type = type
 
     setOutput: (path) ->
-      if out?
-        out.end()
-      out = fs.createWriteStream path
+      zipPath = path
 
     add: (path, callback) ->
       if not initialized
@@ -55,6 +49,7 @@ module.exports = do ->
       if not initialized
         initialize()
 
+      out = fs.createWriteStream zipPath
       zip.pipe out
 
       async.parallel fileStack, (err) ->
