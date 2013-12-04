@@ -21,7 +21,12 @@
     "email": "contact@goansible.com",
     "url": "http://goansible.com/"
   },
-  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.github.com/goansible/zip-paths/master/LICENSE"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/goansible/zip-paths/issues"
   },
