@@ -26,19 +26,25 @@ module.exports = do ->
     setOutput: (path) ->
       zipPath = path
 
-    add: (path, callback) ->
+    add: (path, options={}, callback=->) ->
       if not initialized
         initialize()
 
-      glob path, (err, files) ->
+      if typeof options is 'function'
+        callback = options
+        options = {}
+
+      cwd = options.cwd || ''
+
+      glob path, options, (err, files) ->
         callback err if err
         files.forEach (file, i) ->
-          fs.stat file, (err, stats) ->
+          fs.stat "#{cwd}/#{file}", (err, stats) ->
             if stats.isFile()
               do (file) ->
                 fileList.push file
                 fileStack.push (cb) ->
-                  zip.append(fs.createReadStream(file), name: file, cb)
+                  zip.append(fs.createReadStream("#{cwd}/#{file}"), name: file, cb)
 
             if i is files.length-1
               callback()
@@ -46,7 +52,7 @@ module.exports = do ->
     getFiles: ->
       return fileList
 
-    compress: (callback) ->
+    compress: (callback=->) ->
       if not initialized
         initialize()
 
