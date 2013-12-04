@@ -29,7 +29,6 @@ test 'queues files for compression', (t) ->
     t.end()
 
 test 'creates zip file', (t) ->
-  console.log zipFile, fs.existsSync(zipFile)
   t.false fs.existsSync(zipFile), 'zip file is not created'
 
   t.end()
