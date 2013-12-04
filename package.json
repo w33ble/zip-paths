@@ -1,0 +1,37 @@
+{
+  "name": "zip-path",
+  "version": "0.0.1",
+  "description": "Easily archive paths to zip files",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goansible/zip-paths.git"
+  },
+  "keywords": [
+    "zip",
+    "archive",
+    "archiver",
+    "glob"
+  ],
+  "author": {
+    "name": "Joe Fleming",
+    "email": "contact@goansible.com",
+    "url": "http://goansible.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goansible/zip-paths/issues"
+  },
+  "dependencies": {
+    "archiver": "~0.4.10",
+    "async": "~0.2.9",
+    "coffee-script": "~1.6.3",
+    "glob": "~3.2.7"
+  },
+  "devDependencies": {
+    "mocha": "~1.15.1"
+  }
+}
