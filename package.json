@@ -4,7 +4,7 @@
   "description": "Easily archive paths to zip files",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script --reporter spec"
+    "test": "coffee test/runner.coffee"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "lodash.assign": "~2.4.1"
   },
   "devDependencies": {
-    "mocha": "~1.15.1"
+    "tape": "~2.3.0",
+    "fs-extra": "~0.8.1"
   }
 }
