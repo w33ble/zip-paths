@@ -23,6 +23,5 @@ test 'queued files use relative paths', (t) ->
           cb()
 
   async.parallel stack, (err) ->
-    console.log zip.getFiles()
     t.equals zip.getFiles().length, 3, '3 files queued for compression'
     t.end()
