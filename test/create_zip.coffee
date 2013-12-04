@@ -21,7 +21,7 @@ test 'queues files for compression', (t) ->
     do (file) ->
       stack.push (cb) ->
         zip.add file, (err) ->
-          t.error err, 'Files are added to the queue'
+          t.error err, "#{file} added to the queue"
           cb()
 
   async.parallel stack, (err) ->
