@@ -30,7 +30,6 @@ module.exports = do ->
             if stats.isFile()
               do (file) ->
                 fileStack.push (cb) ->
-                  console.log file
                   zip.append(fs.createReadStream(file), name: file, cb)
 
             if i is files.length-1
