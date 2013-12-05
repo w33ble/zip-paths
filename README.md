@@ -38,9 +38,11 @@ Options to pass to node-archiver. In the case of `zip`, they get passed directly
 
 Set the resulting archive's path
 
-### zip.add(pattern, callback(err){})
+### zip.add(pattern, [options], callback(err){})
 
 Add files to be zipped. Using globbing patters here (such as `path/*.ext`) is valid (see [node-glob](https://github.com/isaacs/node-glob) for more info).
+
+You can optionally pass in an options opbject that will be passed directly to `node-glob`. Passing in `cwd` will adjust the paths in the resulting archive as well.
 
 ### zip.compress(callback(err, bytes){})
 
