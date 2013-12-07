@@ -15,11 +15,13 @@ module.exports = do ->
   initialize = ->
     zip = archiver type, options
     initialized = true
-  reset = ->
-    fileList = []
-    fileStack = []
 
   return {
+    reset: ->
+      zip = archiver type, options
+      fileList = []
+      fileStack = []
+
     setOptions: (opt) ->
       extend(options, opt)
 
