@@ -62,7 +62,7 @@ module.exports = do ->
         initialize()
 
       out = fs.createWriteStream zipPath
-      out.on 'close', reset
+      out.on 'close', @reset
 
       zip.pipe out
 

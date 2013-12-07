@@ -24,4 +24,5 @@ test 'queued files use relative paths', (t) ->
 
   async.parallel stack, (err) ->
     t.equals zip.getFiles().length, 3, '3 files queued for compression'
+    zip.reset()
     t.end()
