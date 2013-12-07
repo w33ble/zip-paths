@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "tape": "~2.3.0",
-    "fs-extra": "~0.8.1"
+    "fs-extra": "~0.8.1",
+    "Faker": "~0.5.11"
   }
 }
