@@ -42,7 +42,7 @@ module.exports = do ->
       cwd = options.cwd || ''
 
       glob path, options, (err, files) ->
-        callback err if err
+        return callback err if err
         files.forEach (file, i) ->
           fs.stat "#{cwd}/#{file}", (err, stats) ->
             if stats.isFile()
