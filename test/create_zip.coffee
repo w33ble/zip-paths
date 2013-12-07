@@ -34,7 +34,7 @@ test 'creates zip file', (t) ->
 
   zip.compress (err, bytes) ->
     t.error err, 'zip is created'
-    t.true fs.existsSync(zipFilePath), 'zip file is created'
+    t.true fs.existsSync(zipFilePath), "#{zipFilePath} is there"
     t.true (bytes > 0), 'file has contents'
     t.end()
 
