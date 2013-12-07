@@ -1,5 +1,5 @@
 test = require 'tape'
-fs = require 'fs'
+fs = require 'fs-extra'
 path = require 'path'
 async = require 'async'
 zip = require '../'
@@ -49,3 +49,9 @@ test 'zip file is valid', (t) ->
           [i..., filename] = file.split path.sep
           t.true stdout.match(filename), "zip contains #{filename}"
         t.end()
+
+test 'remove zip file', (t) ->
+  fs.remove zipFilePath, (err) ->
+    t.error err, 'remove does not error'
+    t.false fs.existsSync(zipFilePath), "#{zipFilePath} is gone"
+    t.end()
