@@ -15,11 +15,13 @@ module.exports = do ->
   initialize = ->
     zip = archiver type, options
     initialized = true
-  reset = ->
-    fileList = []
-    fileStack = []
 
   return {
+    reset: ->
+      zip = archiver type, options
+      fileList = []
+      fileStack = []
+
     setOptions: (opt) ->
       extend(options, opt)
 
@@ -40,7 +42,7 @@ module.exports = do ->
       cwd = options.cwd || ''
 
       glob path, options, (err, files) ->
-        callback err if err
+        return callback err if err
         files.forEach (file, i) ->
           fs.stat "#{cwd}/#{file}", (err, stats) ->
             if stats.isFile()
@@ -60,7 +62,7 @@ module.exports = do ->
         initialize()
 
       out = fs.createWriteStream zipPath
-      out.on 'close', reset
+      out.on 'close', @reset
 
       zip.pipe out
 
