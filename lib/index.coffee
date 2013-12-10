@@ -1,71 +1,57 @@
 glob = require 'glob'
 async = require 'async'
 archiver = require 'archiver'
-extend = require 'lodash.assign'
+assign = require 'lodash.assign'
 fs = require 'fs'
 
-module.exports = do ->
-  options     = level: 9
-  initialized = false
-  type        = 'zip'
-  zip         = undefined
-  zipPath     = undefined
-  fileList    = []
-  fileStack   = []
-  initialize = ->
-    zip = archiver type, options
-    initialized = true
+class zipPaths
+  constructor: (@zipPath, options) ->
+    @fileList = []
+    @asyncStack = []
+    @options = assign {
+      level: 9
+      archiveType: 'zip'
+    }, options
 
-  return {
-    reset: ->
-      zip = archiver type, options
-      fileList = []
-      fileStack = []
+    @archiver = new archiver @options.archiveType, @options
 
-    setOptions: (opt) ->
-      extend(options, opt)
+  getFiles: ->
+    return @fileList
 
-    setType: (type='zip') ->
-      type = type
+  reset: ->
+    @fileList = []
+    @asyncStack = []
+    @archiver = new archiver @options.archiveType, @options
 
-    setOutput: (path) ->
-      zipPath = path
+  add: (path, globOptions, callback=->) ->
+    if typeof globOptions is 'function'
+      callback = globOptions
+      globOptions = {}
 
-    add: (path, options={}, callback=->) ->
-      if not initialized
-        initialize()
+    cwd = globOptions.cwd || ''
 
-      if typeof options is 'function'
-        callback = options
-        options = {}
+    glob path, globOptions, (err, files) =>
+      return callback err if err
+      files.forEach (file, i) =>
+        fs.stat "#{cwd}/#{file}", (err, stats) =>
+          if stats.isFile()
+            do (file) =>
+              @fileList.push file
+              @asyncStack.push (cb) =>
+                @archiver.append(fs.createReadStream("#{cwd}/#{file}"), name: file, cb)
 
-      cwd = options.cwd || ''
+          if i is files.length-1
+            callback()
 
-      glob path, options, (err, files) ->
-        return callback err if err
-        files.forEach (file, i) ->
-          fs.stat "#{cwd}/#{file}", (err, stats) ->
-            if stats.isFile()
-              do (file) ->
-                fileList.push file
-                fileStack.push (cb) ->
-                  zip.append(fs.createReadStream("#{cwd}/#{file}"), name: file, cb)
+  compress: (callback=->) ->
+    out = fs.createWriteStream @zipPath
+    out.on 'close', =>
+      @reset
 
-            if i is files.length-1
-              callback()
+    @archiver.pipe out
 
-    getFiles: ->
-      return fileList
+    async.parallel @asyncStack, (err) =>
+      @archiver.finalize callback
 
-    compress: (callback=->) ->
-      if not initialized
-        initialize()
 
-      out = fs.createWriteStream zipPath
-      out.on 'close', @reset
-
-      zip.pipe out
-
-      async.parallel fileStack, (err) ->
-        zip.finalize callback
-  }
+module.exports = zipPaths
