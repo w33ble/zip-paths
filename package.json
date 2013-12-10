@@ -1,6 +1,6 @@
 {
   "name": "zip-paths",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Easily archive paths to zip files",
   "main": "index.js",
   "scripts": {
