@@ -38,6 +38,10 @@ test 'creates zip file', (t) ->
     t.true (bytes > 0), 'file has contents'
     t.end()
 
+test 'module state is reset', (t) ->
+  t.equals zip.getFiles().length, 0, 'zipPaths queue is empty'
+  t.end()
+
 test 'zip file is valid', (t) ->
   exec 'which unzip', (err, stdout, stderr) ->
     if not err

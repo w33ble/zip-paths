@@ -4,6 +4,11 @@ archiver = require 'archiver'
 assign = require 'lodash.assign'
 fs = require 'fs'
 
+reset = ->
+  @fileList = []
+  @asyncStack = []
+  @archiver = new archiver @options.archiveType, @options
+
 class zipPaths
   constructor: (@zipPath, options) ->
     @fileList = []
@@ -17,11 +22,6 @@ class zipPaths
 
   getFiles: ->
     return @fileList
-
-  reset: ->
-    @fileList = []
-    @asyncStack = []
-    @archiver = new archiver @options.archiveType, @options
 
   add: (path, globOptions, callback=->) ->
     if typeof globOptions is 'function'
@@ -45,13 +45,20 @@ class zipPaths
 
   compress: (callback=->) ->
     out = fs.createWriteStream @zipPath
-    out.on 'close', =>
-      @reset
 
     @archiver.pipe out
 
-    async.parallel @asyncStack, (err) =>
-      @archiver.finalize callback
+    async.parallel [
+      (cb) =>
+        async.parallel @asyncStack, (err) =>
+          @archiver.finalize cb
+
+      (cb) =>
+        out.once 'close', =>
+          reset.call @
+          cb()
+    ], (err, results) ->
+      callback err, results[0]
 
 
 module.exports = zipPaths
