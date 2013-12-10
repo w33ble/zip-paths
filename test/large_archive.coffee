@@ -2,11 +2,13 @@ test = require 'tape'
 Faker = require 'Faker'
 fs = require 'fs-extra'
 path = require 'path'
-zip = require '../'
+zipPaths = require '../'
 
 tmpPath = path.resolve __dirname, 'tmp'
 zipFilePath = path.resolve tmpPath, 'large_output.zip'
 dirs = ['', 'one', 'two/three-ohhhh', 'four/five 67/eight-8']
+
+zip = new zipPaths zipFilePath
 
 test 'create files with faker', (t) ->
   # create all the data
@@ -25,8 +27,6 @@ test 'create files with faker', (t) ->
   t.end()
 
 test 'create zip from fake files', (t) ->
-  zip.setOutput zipFilePath
-
   zip.add "**",
     cwd: tmpPath
   , (err) ->

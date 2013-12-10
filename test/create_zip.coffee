@@ -2,7 +2,7 @@ test = require 'tape'
 fs = require 'fs-extra'
 path = require 'path'
 async = require 'async'
-zip = require '../'
+zipPaths = require '../'
 exec = require('child_process').exec
 
 zipFilePath = path.resolve __dirname, 'tmp', 'output.zip'
@@ -11,10 +11,10 @@ files = ['00_create.coffee', 'runner.coffee', 'zz_cleanup.coffee']
 files = files.map (f) ->
   path.resolve __dirname, f
 
+zip = new zipPaths zipFilePath
+
 test 'queues files for compression', (t) ->
   t.plan 4
-
-  zip.setOutput zipFilePath
 
   stack = []
   files.forEach (file) ->

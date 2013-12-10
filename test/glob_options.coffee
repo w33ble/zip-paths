@@ -2,15 +2,15 @@ test = require 'tape'
 fs = require 'fs'
 path = require 'path'
 async = require 'async'
-zip = require '../'
+zipPaths = require '../'
 
 zipFilePath = path.resolve __dirname, 'tmp', 'output.zip'
 files = ['00_create.coffee', 'runner.coffee', 'zz_cleanup.coffee']
 
+zip = new zipPaths zipFilePath
+
 test 'queued files use relative paths', (t) ->
   t.plan 4
-
-  zip.setOutput zipFilePath
 
   stack = []
   files.forEach (file) ->
@@ -24,5 +24,4 @@ test 'queued files use relative paths', (t) ->
 
   async.parallel stack, (err) ->
     t.equals zip.getFiles().length, 3, '3 files queued for compression'
-    zip.reset()
     t.end()
