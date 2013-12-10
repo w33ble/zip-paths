@@ -15,8 +15,8 @@ The paths that match the globbing pattern are used in the resulting zip file.
 ## Usage
 
 ````
-var zip = require('zip-paths');
-zip.setOutput('out.zip');
+var zipPaths = require('zip-paths');
+zip = new zipPaths('out.zip');
 
 zip.add('js/*.js', function(err) {
   if (err) { /* handle error */ }
@@ -26,23 +26,29 @@ zip.add('js/*.js', function(err) {
 });
 ````
 
-### zip.setType([type])
+### Initialization
 
-Set the type of the compression, `zip` or `tar`
+`new zipPaths('path/to/zipfile.zip', [options])`
 
-### zip.setOptions([options])
+The first parameter is the desired file path of the resulting archive.
 
-Options to pass to node-archiver. In the case of `zip`, they get passed directly to node's [zlib](http://nodejs.org/api/zlib.html#zlib_options)
+`options` is pased to node-archiver. In the case of `zip`, they get passed directly to node's [zlib](http://nodejs.org/api/zlib.html#zlib_options). Default `level` is 9.
 
-### zip.setOutput(path)
+#### Options:
 
-Set the resulting archive's path
+refer to [zlib](http://nodejs.org/api/zlib.html#zlib_options) for zip options. Additional options include:
+
+- `archiveType`: Type of archive to create, `zip` or `tar` - default `zip`
 
 ### zip.add(pattern, [options], callback(err){})
 
 Add files to be zipped. Using globbing patters here (such as `path/*.ext`) is valid (see [node-glob](https://github.com/isaacs/node-glob) for more info).
 
 You can optionally pass in an options opbject that will be passed directly to `node-glob`. Passing in `cwd` will adjust the paths in the resulting archive as well.
+
+### zip.getFiles()
+
+Return an array of all files queued for archiving.
 
 ### zip.compress(callback(err, bytes){})
 
