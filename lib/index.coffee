@@ -34,6 +34,7 @@ class zipPaths
       return callback err if err
       files.forEach (file, i) =>
         fs.stat "#{cwd}/#{file}", (err, stats) =>
+          return callback err if err
           if stats.isFile()
             do (file) =>
               @fileList.push file
