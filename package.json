@@ -28,7 +28,7 @@
     "archiver": "~0.4.10",
     "async": "~0.2.9",
     "coffee-script": "~1.6.3",
-    "glob": "~3.2.7",
+    "glob": "~7.1.0",
     "lodash.assign": "~2.4.1"
   },
   "devDependencies": {
