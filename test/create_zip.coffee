@@ -5,7 +5,8 @@ async = require 'async'
 zipPaths = require '../'
 exec = require('child_process').exec
 
-zipFilePath = path.resolve __dirname, 'tmp', 'output.zip'
+zipFileDir = path.resolve __dirname, 'tmp'
+zipFilePath = path.join zipFileDir, 'output.zip'
 files = ['00_create.coffee', 'runner.coffee', 'zz_cleanup.coffee']
 
 files = files.map (f) ->
