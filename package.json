@@ -2,7 +2,7 @@
   "name": "zip-paths",
   "version": "0.3.1",
   "description": "Easily archive paths to zip files",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "node_modules/.bin/coffee test/runner.coffee"
   },
@@ -27,11 +27,11 @@
   "dependencies": {
     "archiver": "~0.4.10",
     "async": "~0.2.9",
-    "coffee-script": "~1.6.3",
     "glob": "~7.1.0",
     "lodash.assign": "~2.4.1"
   },
   "devDependencies": {
+    "coffee-script": "~1.6.3",
     "tape": "~2.3.0",
     "fs-extra": "~0.8.1",
     "Faker": "~0.5.11"
