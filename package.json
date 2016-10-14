@@ -25,12 +25,12 @@
     "url": "https://github.com/w33ble/zip-paths/issues"
   },
   "dependencies": {
-    "archiver": "~0.4.10",
-    "async": "^2.1.1",
+    "archiver": "~1.1.0",
     "glob": "^7.1.1",
     "lodash.assign": "^4.2.0"
   },
   "devDependencies": {
+    "async": "^2.1.1",
     "coffee-script": "~1.11.1",
     "tape": "^2.3.0",
     "fs-extra": "^0.30.0",
