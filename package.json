@@ -16,17 +16,11 @@
     "archiver",
     "glob"
   ],
-  "author": {
-    "name": "Joe Fleming",
-    "email": "contact@goansible.com",
-    "url": "http://goansible.com/"
+  "author": "Joe Fleming (https://github.com/w33ble)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.4.7"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://raw.github.com/goansible/zip-paths/master/LICENSE"
-    }
-  ],
   "bugs": {
     "url": "https://github.com/goansible/zip-paths/issues"
   },
