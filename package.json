@@ -26,14 +26,14 @@
   },
   "dependencies": {
     "archiver": "~0.4.10",
-    "async": "~0.2.9",
-    "glob": "~7.1.0",
-    "lodash.assign": "~2.4.1"
+    "async": "^2.1.1",
+    "glob": "^7.1.1",
+    "lodash.assign": "^4.2.0"
   },
   "devDependencies": {
-    "coffee-script": "~1.6.3",
-    "tape": "~2.3.0",
-    "fs-extra": "~0.8.1",
-    "Faker": "~0.5.11"
+    "coffee-script": "~1.11.1",
+    "tape": "^2.3.0",
+    "fs-extra": "^0.30.0",
+    "Faker": "^0.7.2"
   }
 }

@@ -30,6 +30,8 @@ test 'queues files for compression', (t) ->
     t.end()
 
 test 'creates zip file', (t) ->
+  t.plan 4
+
   t.false fs.existsSync(zipFilePath), 'zip file is not created'
 
   zip.compress (err, bytes) ->
